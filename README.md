@@ -1,87 +1,125 @@
-# ANG文件欧拉角处理工具
+# ANG Processor · ANG 文件欧拉角处理工具
 
-这是一个基于PyQt5的图形界面工具，用于处理ANG文件的欧拉角变换。
+[English](#english) | [中文](#中文)
 
-## 功能特性
+---
 
-- **文件操作**：选择并加载ANG文件，保存处理后的ANG文件
-- **欧拉角变换**：
-  - 水平翻转 (Horizontal Flip)
-  - 垂直翻转 (Vertical Flip)
-  - Z轴旋转（可自定义角度）
-- **预览功能**：实时预览变换前后指定点的晶粒表示
-- **重置功能**：一键重置所有变换
+## English
 
-## 快速开始（推荐）
+A PyQt5 desktop tool for transforming the Euler angles in EBSD `.ang` files.
 
-### 方法一：一键设置并运行（最简单）
+### Features
 
-双击运行 `setup_and_run.bat`，该脚本会：
-- 自动检查Python环境
-- 创建虚拟环境（如果不存在）
-- 安装所有依赖包
-- 启动程序
+- **File handling**: load an ANG file and save the processed result
+- **Euler angle transforms**:
+  - Horizontal flip
+  - Vertical flip
+  - Rotation about the Z axis (custom angle)
+- **Preview**: see the crystal orientation of a chosen point before and after the transform
+- **Reset**: undo all transforms with one click
 
-### 方法二：分步操作
+### Download (no Python needed)
 
-1. **设置环境**：双击运行 `setup_env.bat`
-   - 创建虚拟环境
-   - 安装依赖包
+Grab `ANG_Processor.exe` from the [Releases page](https://github.com/xinren1230/ang_processor_project/releases) and double-click it. Windows only.
 
-2. **运行程序**：双击运行 `run.bat`
-   - 激活虚拟环境
-   - 启动程序
+### Run from source
 
-## 手动安装（可选）
+**One-click:** double-click `setup_and_run.bat`. It checks Python, creates a virtual environment, installs the dependencies and starts the program.
 
-如果需要手动安装：
+**Step by step:** run `setup_env.bat` once to set up the environment, then `run.bat` to start the program.
+
+**Manual:**
 
 ```bash
-# 创建虚拟环境
 python -m venv venv
-
-# 激活虚拟环境
-# Windows:
+# Windows
 venv\Scripts\activate.bat
-# Linux/Mac:
+# Linux/Mac
 source venv/bin/activate
-
-# 安装依赖
 pip install -r requirements.txt
-
-# 运行程序
 python ang_processor.py
 ```
 
-## 使用方法
+### Usage
 
-1. 运行程序后，点击"选择ANG文件"按钮，选择要处理的ANG文件
+1. Click "选择ANG文件" (Select ANG file) and pick the file to process.
+2. Apply transforms:
+   - **Horizontal flip** mirrors the X coordinates and adjusts the Euler angles accordingly.
+   - **Vertical flip** mirrors the Y coordinates and adjusts the Euler angles accordingly.
+   - **Z rotation**: set the angle, then click "应用Z轴旋转" (Apply Z rotation).
+3. Preview: choose a point in "预览点索引" (Preview point index); the left view shows the grain before the transform, the right view after.
+4. Click "保存ANG文件" (Save ANG file) to write the result.
 
-2. 点击"选择ANG文件"按钮，选择要处理的ANG文件
+### ANG file format
 
-3. 使用变换按钮进行欧拉角变换：
-   - **水平翻转**：翻转X坐标并调整相应的欧拉角
-   - **垂直翻转**：翻转Y坐标并调整相应的欧拉角
-   - **Z轴旋转**：设置旋转角度后点击"应用Z轴旋转"
+Standard ANG format, one point per line: `X Y IQ CI Phase Phi1 PHI Phi2` (coordinates, image quality, confidence index, phase ID, Euler angles in degrees). See `example.ang`.
 
-4. 使用预览功能查看变换效果：
-   - 在"预览点索引"中选择要查看的数据点
-   - 左侧显示变换前的晶粒，右侧显示变换后的晶粒
+### Notes
 
-5. 点击"保存ANG文件"保存处理后的结果
+- Lines starting with `#` are treated as comments and skipped.
+- Transforms follow standard crystallographic conventions.
+- All angles are normalized to 0–360°.
 
-## ANG文件格式
+---
 
-程序支持标准的ANG文件格式，每行包含：
-- X, Y: 坐标
-- IQ: 图像质量
-- CI: 置信度指数
-- Phase: 相编号
-- Phi1, PHI, Phi2: 欧拉角（度）
+## 中文
 
-## 注意事项
+这是一个基于 PyQt5 的图形界面工具，用于处理 EBSD `.ang` 文件的欧拉角变换。
 
-- 程序会自动跳过以#开头的注释行
+### 功能特性
+
+- **文件操作**：选择并加载 ANG 文件，保存处理后的 ANG 文件
+- **欧拉角变换**：
+  - 水平翻转
+  - 垂直翻转
+  - Z 轴旋转（可自定义角度）
+- **预览功能**：实时预览变换前后指定点的晶粒取向
+- **重置功能**：一键重置所有变换
+
+### 直接下载（无需安装 Python）
+
+在 [Releases 页面](https://github.com/xinren1230/ang_processor_project/releases) 下载 `ANG_Processor.exe`，双击即可运行（仅限 Windows）。
+
+### 从源码运行
+
+**一键运行：** 双击 `setup_and_run.bat`，脚本会自动检查 Python、创建虚拟环境、安装依赖并启动程序。
+
+**分步操作：** 先运行 `setup_env.bat` 配置环境，之后用 `run.bat` 启动程序。
+
+**手动安装：**
+
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate.bat
+# Linux/Mac
+source venv/bin/activate
+pip install -r requirements.txt
+python ang_processor.py
+```
+
+### 使用方法
+
+1. 点击"选择ANG文件"，选择要处理的 ANG 文件。
+2. 使用变换按钮进行欧拉角变换：
+   - **水平翻转**：翻转 X 坐标并调整相应的欧拉角
+   - **垂直翻转**：翻转 Y 坐标并调整相应的欧拉角
+   - **Z 轴旋转**：设置旋转角度后点击"应用Z轴旋转"
+3. 预览：在"预览点索引"中选择数据点，左侧显示变换前的晶粒，右侧显示变换后的晶粒。
+4. 点击"保存ANG文件"保存结果。
+
+### ANG 文件格式
+
+支持标准 ANG 格式，每行为 `X Y IQ CI Phase Phi1 PHI Phi2`（坐标、图像质量、置信度指数、相编号、欧拉角，单位为度）。示例见 `example.ang`。
+
+### 注意事项
+
+- 以 `#` 开头的注释行会被自动跳过
 - 欧拉角变换遵循标准的晶体学变换规则
-- 所有角度值会自动归一化到0-360度范围
+- 所有角度会自动归一化到 0–360° 范围
 
+---
+
+## License · 许可证
+
+[MIT](LICENSE) © 2026 Xinren Chen
